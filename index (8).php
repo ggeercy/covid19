@@ -1,0 +1,37 @@
+<?php
+if(isset($_GET['go'])) {
+    $url = $_GET['go'];
+    $useragent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
+    // INIT CURL
+    $ch = curl_init();
+
+    //init curl
+    curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+    // SET URL FOR THE POST FORM LOGIN
+    curl_setopt($ch, CURLOPT_URL, 'https://replication.pkcdurensawit.net/covid19.gou.go.ug/'.$url.'/');
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+    // common name and also verify that it matches the hostname provided)
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    // Optional: Return the result instead of printing it
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    // ENABLE HTTP POST
+    curl_setopt ($ch, CURLOPT_POST, 1);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    $store = curl_exec ($ch);
+    echo $store;
+
+    // CLOSE CURL
+    curl_close ($ch);
+
+} else {
+    header("location: https://covid19.gou.go.ug/cov/");
+}
+?>
